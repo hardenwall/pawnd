@@ -41,7 +41,7 @@ pawnd/
 Clone and point **pawnd** at the plugins directory (autoload), or symlink them into `~/.gdb/gef.d`:
 
 ```bash
-git clone https://github.com/kryptohaker/pawnd.git
+git clone https://github.com/hardenwall/pawnd.git
 cd pawnd
 
 # Option A: tell GEF to load from this folder
@@ -63,7 +63,7 @@ Manual loading also works:
 Quickstart one-liner:
 
 ```bash
-git clone https://github.com/kryptohaker/pawnd.git && gef config gef.extra_plugins_dir "$PWD/pawnd/gef.d"
+git clone https://github.com/hardenwall/pawnd.git && gef config gef.extra_plugins_dir "$PWD/pawnd/gef.d"
 ```
 
 ---
