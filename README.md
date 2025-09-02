@@ -196,6 +196,7 @@ PRs and issues welcome! Please keep features small and focused. For new commands
 
 MIT — see [LICENSE](./LICENSE).
 
+---
 ## Attribution
 
 pawnd is developed and maintained by [kryptohaker](https://github.com/kryptohaker) and [Hardenwall](https://hardenwall.com) 🛡️
