@@ -34,8 +34,6 @@ pawnd/
 - [GEF](https://github.com/hugsy/gef) installed/loaded
 - Python 3.7+
 
-`whereis` works with **x86 (32-bit) and x86-64** inferiors.
-
 ---
 
 ## Install
@@ -78,6 +76,8 @@ git clone https://github.com/kryptohaker/pawnd.git && gef config gef.extra_plugi
 whereis <address-or-expression>
 ```
 
+==Note==: `whereis` works with **x86 (32-bit) and x86-64** inferiors.
+
 Accepts:
 - Hex (e.g., `0xdeadbeef`)
 - Registers: `$sp` (portable), `$rsp`, `$esp`, `$pc`, `$eip`, etc.
@@ -105,12 +105,6 @@ gef➤  whereis 0xf7ffcfec
     +0x1fec from region start
 ============================================================
 ```
-
-What it does:
-- Parses `/proc/<pid>/maps` (live) or falls back to `info proc mappings`.
-- Classifies: **HEAP**, **STACK** (and per-thread `STACK (thread)`), **SHARED LIB**, **EXECUTABLE / MAPPED FILE**, **VDSO**, **VVAR**, **VSYSCALL**, **ANON**, **(deleted) files**.
-- Prints region bounds, perms, file/offset, and distance from region start.
-- Tries `info symbol` for a quick symbol hint when available.
 
 **x86 note:** GPRs like `$ebx` can be sign-extended by GDB when read as integers. `whereis` masks values to the current pointer width, so `whereis $ebx` resolves correctly.
 
@@ -149,15 +143,6 @@ Memory: 0x01    0x02    0x03    ----    ----    ----    ----    ----
 Tips:
 - Usually you inject the generated pattern into the vulnerable buffer and then `--compare` at the buffer address.
 - For larger overreads, keep `badchars.bin` intact; the tool stops at the first new bad byte to speed iteration.
-
----
-
-## Design notes
-
-- **Arch-agnostic:** uses GDB’s `$sp` and masks addresses to the current pointer width.
-- **Thread stacks:** `[stack:<tid>]` regions are labeled **STACK (thread)**.
-- **Remote/core debugging:** if `/proc/<pid>/maps` isn’t available, the tool parses `info proc mappings` as a fallback.
-- **Symbol hints:** attempts `info symbol <addr>` and prints any match.
 
 ---
 
